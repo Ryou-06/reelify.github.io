@@ -7,7 +7,6 @@
 
   onMount(async () => {
     try {
-      // Fetch the current session from $auth
       const session = await fetch('/api/auth/session').then(res => res.json());
       
       if (session && session.user) {
@@ -31,16 +30,25 @@
   });
 </script>
 
-<h1 class="text-4xl font-bold text-center my-16">Your Watchlist</h1>
+<!-- Layout Container -->
+<div class="container mx-auto px-4 py-8">
+  <!-- Page Heading -->
+  <h1 class="text-4xl font-bold text-center my-8 text-gray-800">
+    Your Watchlist
+  </h1>
 
-<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 px-4 mb-16">
-  {#each watchlist as item, index}
-    <div class="bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden">
-      <img src={item.imageUrl} alt={item.title} class="w-full h-64 object-cover" />
-      <div class="p-4">
-        <h2 class="text-xl font-semibold">{index + 1}. {item.title}</h2>
-        <p class="text-gray-600 text-sm mt-2">{item.description}</p>
-      </div>
+  <!-- Watchlist Grid -->
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      {#each watchlist as item, index}
+        <div class="bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden transition-transform transform hover:scale-105">
+          <img src={item.imageUrl} alt={item.title} class="w-full h-48 object-cover" />
+          <div class="p-4">
+            <h2 class="text-xl font-semibold text-gray-800">{index + 1}. {item.title}</h2>
+            <p class="text-gray-600 text-sm mt-2">{item.description}</p>
+          </div>
+        </div>
+      {/each}
     </div>
-  {/each}
+  </div>
 </div>
